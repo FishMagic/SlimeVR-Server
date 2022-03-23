@@ -79,7 +79,9 @@ fun TrackerPage(vrServer: VRServer, trackersList: MutableList<Tracker>) {
         Text(text = "Fast Reset")
       }
     }
-    TrackersList(vrServer, trackersList)
+    Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
+      TrackersList(vrServer, trackersList)
+    }
   }
 }
 
@@ -96,7 +98,7 @@ private fun TrackersList(vrServer: VRServer, trackersList: MutableList<Tracker>)
   }
   val stateVertical = rememberScrollState(0)
   Column(
-    modifier = Modifier.fillMaxSize().verticalScroll(stateVertical),
+    modifier = Modifier.fillMaxWidth().verticalScroll(stateVertical),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     for ((simpleName, trackers) in trackersMap) {
@@ -105,9 +107,9 @@ private fun TrackersList(vrServer: VRServer, trackersList: MutableList<Tracker>)
         trackers.forEachIndexed { index, tracker ->
           if (index % 2 == 0) {
             Row {
-              TrackerInfoCard(vrServer, tracker, 200)
+              TrackerInfoCard(vrServer, tracker, 400)
               Spacer(modifier = Modifier.width(4.dp))
-              TrackerInfoCard(vrServer, trackers[index + 1], 200)
+              TrackerInfoCard(vrServer, trackers[index + 1], 400)
             }
             Spacer(modifier = Modifier.height(4.dp))
           }
@@ -115,13 +117,13 @@ private fun TrackersList(vrServer: VRServer, trackersList: MutableList<Tracker>)
       } else {
         trackers.forEachIndexed { index, tracker ->
           if (index == 0) {
-            TrackerInfoCard(vrServer, tracker, 400)
+            TrackerInfoCard(vrServer, tracker, 800)
             Spacer(modifier = Modifier.height(4.dp))
           } else if (index % 2 == 1) {
             Row {
-              TrackerInfoCard(vrServer, tracker, 200)
+              TrackerInfoCard(vrServer, tracker, 400)
               Spacer(modifier = Modifier.width(4.dp))
-              TrackerInfoCard(vrServer, trackers[index + 1], 200)
+              TrackerInfoCard(vrServer, trackers[index + 1], 400)
             }
             Spacer(modifier = Modifier.height(4.dp))
           }
@@ -165,7 +167,6 @@ private fun TrackerInfoCard(
       if (realTracker.hasRotation()) {
         Row {
           Text(
-//						text = "Rotation: ${rotation[0]}, ${rotation[1]}, ${rotation[2]}",
             text = String.format("Rotation: %.2f, %.2f, %.2f", rotation[0], rotation[1], rotation[2]),
             style = MaterialTheme.typography.body2
           )
@@ -173,14 +174,12 @@ private fun TrackerInfoCard(
       }
       if (tracker.hasPosition()) {
         Text(
-//					text = "Position: ${position[0]}, ${position[1]}, ${position[2]}",
           text = String.format("Position: %.2f, %.2f, %.2f", position[0], position[1], position[2]),
           style = MaterialTheme.typography.body2
         )
       }
       if (realTracker is TrackerWithTPS) {
         Text(
-//					"TPS: $tps",
           text = String.format("TPS: %.1f", tps), style = MaterialTheme.typography.body2
         )
       }
@@ -195,7 +194,6 @@ private fun TrackerInfoCard(
         text = "Status: $status", style = MaterialTheme.typography.body2
       )
       Text(
-//				text = "Row: ${raw[0]}, ${raw[1]}, ${raw[2]}",
         text = String.format("Raw: %.2f, %.2f, %.2f", raw[0], raw[1], raw[2]), style = MaterialTheme.typography.body2
       )
     }

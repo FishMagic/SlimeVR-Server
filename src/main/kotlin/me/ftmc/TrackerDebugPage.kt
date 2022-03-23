@@ -44,7 +44,9 @@ fun DebugPage(trackersList: MutableList<Tracker>) {
     ) {
       Text(text = "Trackers Debug", style = MaterialTheme.typography.h5)
     }
-    TrackersList(trackersList)
+    Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
+      TrackersList(trackersList)
+    }
   }
 }
 
@@ -61,7 +63,7 @@ private fun TrackersList(trackersList: MutableList<Tracker>) {
   }
   val stateVertical = rememberScrollState(0)
   Column(
-    modifier = Modifier.fillMaxSize().verticalScroll(stateVertical),
+    modifier = Modifier.fillMaxWidth().verticalScroll(stateVertical),
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     for ((simpleName, trackers) in trackersMap) {

@@ -37,7 +37,7 @@ fun main() = application {
     onCloseRequest = ::exitApplication,
     title = "SlimeVR: Server",
     icon = painterResource("icon256.png"),
-    state = WindowState(size = DpSize(width = 600.dp, height = 500.dp)),
+    state = WindowState(size = DpSize(width = 950.dp, height = 850.dp)),
     resizable = false
   ) {
     init()
