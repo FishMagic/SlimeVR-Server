@@ -55,6 +55,9 @@ dependencies {
 	implementation "org.java-websocket:Java-WebSocket:1.5.2"
 	implementation 'com.melloware:jintellitype:1.4.0'
 	implementation(compose.desktop.currentOs)
+	implementation 'org.jetbrains.compose.material:material-icons-extended:1.1.0'
+	implementation 'org.jetbrains.compose.material:material-icons-extended-desktop:1.1.0'
+
 
 	// Use JUnit test framework
 	testImplementation platform('org.junit:junit-bom:5.8.2')
