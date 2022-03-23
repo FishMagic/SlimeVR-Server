@@ -70,7 +70,7 @@ fun TrackerPage(vrServer: VRServer, trackersList: MutableList<Tracker>) {
       ) {
         Text(text = restButtonText)
       }
-      Text(text = "Trackers list", style = MaterialTheme.typography.h5)
+      Text(text = "Trackers List", style = MaterialTheme.typography.h5)
       Button(onClick = {
         MainScope().launch {
           vrServer.resetTrackersYaw()
