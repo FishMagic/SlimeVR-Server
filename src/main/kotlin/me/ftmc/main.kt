@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.DpSize
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.ApplicationScope
 import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogState
 import androidx.compose.ui.window.Window
 import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
@@ -69,7 +70,9 @@ private fun ApplicationScope.init() {
   if (versionWarning) {
     Dialog(
       onCloseRequest = ::exitApplication,
-      title = "SlimeVR: Java Runtime Mismatch"
+      title = "SlimeVR: Java Runtime Mismatch",
+      state = DialogState(size = DpSize(450.dp, 150.dp)),
+      resizable = false
     ) {
       Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Text(text = "SlimeVR start-up error!\nA minimum of Java 11 is required.")
@@ -92,9 +95,11 @@ private fun ApplicationScope.init() {
     busyWarning = true
   }
   if (busyWarning) {
-    Dialog(
+    Dialog (
       onCloseRequest = ::exitApplication,
-      title = "SlimeVR: Ports are busy"
+      title = "SlimeVR: Ports are busy",
+      state = DialogState(size = DpSize(450.dp, 150.dp)),
+      resizable = false
     ) {
       Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
         Text(text = "SlimeVR start-up error!\nRequired ports are busy.\nMake sure there is no other instance of SlimeVR Server running.")
