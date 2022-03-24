@@ -28,7 +28,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import dev.slimevr.VRServer
 import dev.slimevr.platform.windows.WindowsNamedPipeBridge
-import dev.slimevr.posestreamer.ServerPoseStreamer
 import dev.slimevr.vr.processor.TransformNode
 import dev.slimevr.vr.trackers.Tracker
 
@@ -36,7 +35,6 @@ import dev.slimevr.vr.trackers.Tracker
 fun VRServerGUI(vrServer: VRServer) {
   val trackerList = remember { mutableListOf<Tracker>() }
   var nodeList by remember { mutableStateOf(arrayOf<TransformNode>()) }
-  val poseStreamer = ServerPoseStreamer(vrServer)
   var loading by remember { mutableStateOf(false) }
   LaunchedEffect(true) {
     vrServer.addNewTrackerConsumer {
