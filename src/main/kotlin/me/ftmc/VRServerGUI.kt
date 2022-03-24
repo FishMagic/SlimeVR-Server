@@ -27,6 +27,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.vector.ImageVector
 import dev.slimevr.VRServer
+import dev.slimevr.platform.windows.WindowsNamedPipeBridge
 import dev.slimevr.posestreamer.ServerPoseStreamer
 import dev.slimevr.vr.processor.TransformNode
 import dev.slimevr.vr.trackers.Tracker
@@ -53,7 +54,9 @@ fun VRServerGUI(vrServer: VRServer) {
     pages["Trackers"] = Icons.Filled.PieChart
     pages["Debug"] = Icons.Filled.BugReport
     pages["Body"] = Icons.Filled.EmojiPeople
-    pages["Steam VR"] = Icons.Filled.ViewInAr
+    if (vrServer.hasBridge(WindowsNamedPipeBridge::class.java)) {
+      pages["Steam VR"] = Icons.Filled.ViewInAr
+    }
     pages["Skeleton"] = Icons.Filled.Analytics
     pages["WiFi"] = Icons.Filled.Wifi
     NavigationRail {
@@ -69,6 +72,7 @@ fun VRServerGUI(vrServer: VRServer) {
         "Trackers" -> TrackerPage(vrServer, trackerList)
         "Debug" -> DebugPage(trackerList)
         "Body" -> BodyPage(vrServer)
+        "Steam VR" -> SteamVRPage(vrServer)
       }
     } else {
       Column(
@@ -81,4 +85,3 @@ fun VRServerGUI(vrServer: VRServer) {
     }
   }
 }
-
