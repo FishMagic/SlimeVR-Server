@@ -12,6 +12,7 @@ plugins {
 //	id 'application'
 	kotlin("jvm") version "1.6.10"
 	id("org.jetbrains.compose") version "1.1.0"
+	kotlin("plugin.serialization") version "1.6.10"
 }
 
 allprojects {
