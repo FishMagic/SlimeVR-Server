@@ -68,6 +68,7 @@ fun VRServerGUI(vrServer: VRServer) {
       when (selected) {
         "Trackers" -> TrackerPage(vrServer, trackerList)
         "Debug" -> DebugPage(trackerList)
+        "Body" -> BodyPage(vrServer)
       }
     } else {
       Column(
@@ -80,3 +81,4 @@ fun VRServerGUI(vrServer: VRServer) {
     }
   }
 }
+
