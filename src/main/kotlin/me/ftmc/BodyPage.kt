@@ -76,6 +76,7 @@ fun BodyPage(vrServer: VRServer) {
         Text(text = "Auto")
       }
     }
+    Spacer(Modifier.height(4.dp))
     Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
       SkeletionList(vrServer)
     }

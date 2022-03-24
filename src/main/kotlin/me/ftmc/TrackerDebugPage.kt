@@ -43,6 +43,7 @@ fun DebugPage(trackersList: MutableList<Tracker>) {
     ) {
       Text(text = "Trackers Debug", style = MaterialTheme.typography.h5)
     }
+    Spacer(Modifier.height(4.dp))
     Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
       TrackersList(trackersList)
     }
@@ -71,7 +72,7 @@ private fun TrackersList(trackersList: MutableList<Tracker>) {
         trackers.forEachIndexed { index, tracker ->
           if (index % 2 == 0) {
             Row {
-              TrackerDebugCard(tracker, 200)
+              TrackerDebugCard(tracker, 400)
               Spacer(modifier = Modifier.width(4.dp))
               TrackerDebugCard(trackers[index + 1], 200)
             }
@@ -81,13 +82,13 @@ private fun TrackersList(trackersList: MutableList<Tracker>) {
       } else {
         trackers.forEachIndexed { index, tracker ->
           if (index == 0) {
-            TrackerDebugCard(tracker, 400)
+            TrackerDebugCard(tracker, 800)
             Spacer(modifier = Modifier.height(4.dp))
           } else if (index % 2 == 1) {
             Row {
-              TrackerDebugCard(tracker, 200)
+              TrackerDebugCard(tracker, 400)
               Spacer(modifier = Modifier.width(4.dp))
-              TrackerDebugCard(trackers[index + 1], 200)
+              TrackerDebugCard(trackers[index + 1], 400)
             }
             Spacer(modifier = Modifier.height(4.dp))
           }

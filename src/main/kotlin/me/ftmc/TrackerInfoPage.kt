@@ -80,6 +80,7 @@ fun TrackerPage(vrServer: VRServer, trackersList: MutableList<Tracker>) {
         Text(text = "Fast Reset")
       }
     }
+    Spacer(Modifier.height(4.dp))
     Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
       TrackersList(vrServer, trackersList)
     }
