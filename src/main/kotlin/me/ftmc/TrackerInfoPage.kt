@@ -22,6 +22,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.OutlinedButton
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -54,21 +55,21 @@ fun TrackerPage(vrServer: VRServer, trackersList: MutableList<Tracker>) {
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
-      var resting by remember { mutableStateOf(false) }
-      var restButtonText by remember { mutableStateOf("Rest") }
+      var reseting by remember { mutableStateOf(false) }
+      var resetButtonText by remember { mutableStateOf("Reset") }
       Button(
         onClick = {
           MainScope().launch {
-            resting = true
-            restButtonText = "Resting..."
+            reseting = true
+            resetButtonText = "Resetting..."
             vrServer.resetTrackers()
             delay(3000L)
-            resting = false
-            restButtonText = "Rest"
+            reseting = false
+            resetButtonText = "Reset"
           }
-        }, enabled = !resting
+        }, enabled = !reseting
       ) {
-        Text(text = restButtonText)
+        Text(text = resetButtonText)
       }
       Text(text = "Trackers List", style = MaterialTheme.typography.h5)
       Button(onClick = {
@@ -198,7 +199,7 @@ private fun TrackerInfoCard(
       )
     }
   }
-  MainScope().launch() {
+  LaunchedEffect(true) {
     while (true) {
       if (tracker.hasPosition()) {
         tracker.getPosition(positionStore)

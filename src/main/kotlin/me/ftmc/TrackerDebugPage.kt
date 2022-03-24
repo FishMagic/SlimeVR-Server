@@ -18,6 +18,7 @@ import androidx.compose.material.Card
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,9 +31,7 @@ import com.jme3.math.Quaternion
 import dev.slimevr.vr.trackers.IMUTracker
 import dev.slimevr.vr.trackers.ReferenceAdjustedTracker
 import dev.slimevr.vr.trackers.Tracker
-import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 @Composable
 fun DebugPage(trackersList: MutableList<Tracker>) {
@@ -140,7 +139,7 @@ private fun TrackerDebugCard(tracker: Tracker, cardWidth: Int) {
       }
     }
   }
-  MainScope().launch() {
+  LaunchedEffect(true) {
     while (true) {
       if (realTracker is IMUTracker) {
         realTracker.rotMagQuaternion.toAngles(floatArray)
