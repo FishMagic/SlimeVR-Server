@@ -25,19 +25,23 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.fazecast.jSerialComm.SerialPort
 import kotlinx.coroutines.delay
+import me.ftmc.i18n.Wifi
 import java.io.IOException
 import java.io.OutputStreamWriter
 import java.util.*
 
+private lateinit var localI18nObject: Wifi
+
 @Composable
 fun WiFiPage() {
+  localI18nObject = globalI18nObject.wifi
   Column(modifier = Modifier.fillMaxSize().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
     Row(
       horizontalArrangement = Arrangement.Center,
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
-      Text(text = "WiFi", style = MaterialTheme.typography.h5)
+      Text(text = localI18nObject.title, style = MaterialTheme.typography.h5)
     }
     Spacer(Modifier.height(4.dp))
     Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
@@ -71,20 +75,20 @@ private fun WiFiContent() {
       }
     }
     if (trackerPort == null) {
-      Text(text = "No trackers connected, connect tracker to USB")
+      Text(text = localI18nObject.disconnect)
     } else {
       var networkName by remember { mutableStateOf("") }
       var networkPassword by remember { mutableStateOf("") }
       var sendButtonEnable by remember { mutableStateOf(true) }
       var statusText by remember { mutableStateOf("") }
       var progressIndicatorData by remember { mutableStateOf(0f) }
-      Text(text = "Tracker connected to " + trackerPort!!.getSystemPortName() + " (" + trackerPort!!.getDescriptivePortName() + ")")
+      Text(text = localI18nObject.connectedInfo + trackerPort!!.getSystemPortName() + " (" + trackerPort!!.getDescriptivePortName() + ")")
       Row {
-        Text(text = "Network Name:")
+        Text(text = localI18nObject.networkName)
         OutlinedTextField(value = networkName, onValueChange = {networkName = it})
       }
       Row {
-        Text(text = "Network Password:")
+        Text(text = localI18nObject.networkPassword)
         OutlinedTextField(value = networkPassword, onValueChange = {networkPassword = it})
       }
       Button(onClick = {
@@ -92,28 +96,28 @@ private fun WiFiContent() {
         sendButtonEnable = false
         if (trackerPort!!.openPort()) {
           trackerPort!!.baudRate = 115200
-          statusText = "Port Opened"
+          statusText = localI18nObject.status.opened
           progressIndicatorData = .33f
           val outputStream = trackerPort!!.outputStream
           val writer = OutputStreamWriter(outputStream)
           try{
             writer.append("SET WIFI \"$networkName\" \"$networkPassword\"\n")
             writer.flush()
-            statusText = "WiFi Written"
+            statusText = localI18nObject.status.written
             progressIndicatorData = .66f
           } catch (_: IOException) {
-            statusText = "Write WiFi Error!"
+            statusText = localI18nObject.status.writeError
           }
           trackerPort!!.closePort()
-          statusText = "Done!"
+          statusText = localI18nObject.status.done
           progressIndicatorData = 1f
           portUsing = false
         } else {
-          statusText = "Port Open Error"
+          statusText = localI18nObject.status.openError
         }
       },
         enabled = sendButtonEnable) {
-        Text(text = "Send")
+        Text(text = localI18nObject.send)
       }
       Text(text = statusText)
       LinearProgressIndicator(progressIndicatorData)

@@ -32,16 +32,20 @@ import dev.slimevr.vr.trackers.IMUTracker
 import dev.slimevr.vr.trackers.ReferenceAdjustedTracker
 import dev.slimevr.vr.trackers.Tracker
 import kotlinx.coroutines.delay
+import me.ftmc.i18n.Debug
+
+private lateinit var localI18nObject: Debug
 
 @Composable
 fun DebugPage(trackersList: MutableList<Tracker>) {
+  localI18nObject = globalI18nObject.debug
   Column(modifier = Modifier.fillMaxSize().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
     Row(
       horizontalArrangement = Arrangement.Center,
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
-      Text(text = "Trackers Debug", style = MaterialTheme.typography.h5)
+      Text(text = localI18nObject.title, style = MaterialTheme.typography.h5)
     }
     Spacer(Modifier.height(4.dp))
     Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.CenterVertically) {
@@ -63,11 +67,10 @@ private fun TrackersList(trackersList: MutableList<Tracker>) {
   }
   val stateVertical = rememberScrollState(0)
   Column(
-    modifier = Modifier.fillMaxWidth().verticalScroll(stateVertical),
-    horizontalAlignment = Alignment.CenterHorizontally
+    modifier = Modifier.fillMaxWidth().verticalScroll(stateVertical), horizontalAlignment = Alignment.CenterHorizontally
   ) {
     for ((simpleName, trackers) in trackersMap) {
-      Text(text = simpleName, style = MaterialTheme.typography.h6)
+      Text(text = globalI18nObject.info.simpleName[simpleName], style = MaterialTheme.typography.h6)
       if (trackers.size % 2 == 0) {
         trackers.forEachIndexed { index, tracker ->
           if (index % 2 == 0) {
@@ -97,8 +100,7 @@ private fun TrackersList(trackersList: MutableList<Tracker>) {
     }
   }
   VerticalScrollbar(
-    modifier = Modifier.fillMaxHeight(),
-    adapter = rememberScrollbarAdapter(stateVertical)
+    modifier = Modifier.fillMaxHeight(), adapter = rememberScrollbarAdapter(stateVertical)
   )
 }
 
@@ -124,19 +126,19 @@ private fun TrackerDebugCard(tracker: Tracker, cardWidth: Int) {
         Text(text = realTracker.name, style = MaterialTheme.typography.subtitle1)
       }
       if (realTracker is IMUTracker) {
-        Text(text = "Quat: " + rotQuat)
-        Text(text = "Raw Mag: " + rawMag)
-        Text(text = "Gyro Fix: " + gyroFix)
-        Text(text = "Cal: " + calibration)
-        Text(text = "Mag Acc: " + magAccuracy)
-        Text(text = "Correction: " + correction)
-        Text(text = "RotAdj: " + rotAdj)
+        Text(text = localI18nObject.quat + rotQuat)
+        Text(text = localI18nObject.rawMag + rawMag)
+        Text(text = localI18nObject.gyroFix + gyroFix)
+        Text(text = localI18nObject.cal + calibration)
+        Text(text = localI18nObject.magAcc + magAccuracy)
+        Text(text = localI18nObject.correction + correction)
+        Text(text = localI18nObject.rotadj + rotAdj)
       }
       if (realTracker is ReferenceAdjustedTracker<*>) {
-        Text(text = "Att Fix: %s" + adj)
-        Text(text = "Yaw Fix: %s" + adjYaw)
-        Text(text = "Gyro Fix: %s" + adjGyro)
-        Text(text = "Temp: %s" + temperature)
+        Text(text = localI18nObject.attFix + adj)
+        Text(text = localI18nObject.yawFix + adjYaw)
+        Text(text = localI18nObject.gyroFix + adjGyro)
+        Text(text = localI18nObject.temp + temperature)
       }
     }
   }

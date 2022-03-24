@@ -25,9 +25,13 @@ import androidx.compose.ui.unit.dp
 import dev.slimevr.VRServer
 import dev.slimevr.platform.windows.WindowsNamedPipeBridge
 import dev.slimevr.vr.trackers.TrackerRole
+import me.ftmc.i18n.SteamVr
+
+private lateinit var localI18nObject: SteamVr
 
 @Composable
 fun SteamVRPage(vrServer: VRServer) {
+  localI18nObject = globalI18nObject.steamVr
   Column(modifier = Modifier.fillMaxSize().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
     Row(
       horizontalArrangement = Arrangement.Center,
@@ -35,9 +39,9 @@ fun SteamVRPage(vrServer: VRServer) {
       modifier = Modifier.fillMaxWidth()
     ) {
       Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        Text(text = "Steam VR", style = MaterialTheme.typography.h5)
+        Text(text = localI18nObject.title, style = MaterialTheme.typography.h5)
         Spacer(Modifier.height(4.dp))
-        Text(text = "Changes may require restart of SteamVR", style = MaterialTheme.typography.subtitle1)
+        Text(text = localI18nObject.notice, style = MaterialTheme.typography.subtitle1)
       }
     }
     Spacer(Modifier.height(4.dp))
@@ -60,7 +64,7 @@ private fun SteamVRList(vrServer: VRServer) {
         var selected by remember { mutableStateOf(vrBridge.getShareSetting(TrackerRole.WAIST)) }
         Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
           Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
-            Text(text = "Waist")
+            Text(text = localI18nObject.waist)
           }
           Column(modifier = Modifier.weight(.5f)) {
             Switch(checked = selected, onCheckedChange = {
@@ -73,13 +77,12 @@ private fun SteamVRList(vrServer: VRServer) {
       Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
         var selected by remember {
           mutableStateOf(
-            vrBridge.getShareSetting(TrackerRole.LEFT_FOOT) &&
-                vrBridge.getShareSetting(TrackerRole.RIGHT_FOOT)
+            vrBridge.getShareSetting(TrackerRole.LEFT_FOOT) && vrBridge.getShareSetting(TrackerRole.RIGHT_FOOT)
           )
         }
         Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
           Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
-            Text(text = "Legs")
+            Text(text = localI18nObject.legs)
           }
           Column(modifier = Modifier.weight(.5f)) {
             Switch(checked = selected, onCheckedChange = {
@@ -101,7 +104,7 @@ private fun SteamVRList(vrServer: VRServer) {
         var selected by remember { mutableStateOf(vrBridge.getShareSetting(TrackerRole.CHEST)) }
         Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
           Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
-            Text(text = "Chest")
+            Text(text = localI18nObject.chest)
           }
           Column(modifier = Modifier.weight(.5f)) {
             Switch(checked = selected, onCheckedChange = {
@@ -114,13 +117,12 @@ private fun SteamVRList(vrServer: VRServer) {
       Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
         var selected by remember {
           mutableStateOf(
-            vrBridge.getShareSetting(TrackerRole.LEFT_KNEE) &&
-                vrBridge.getShareSetting(TrackerRole.RIGHT_KNEE)
+            vrBridge.getShareSetting(TrackerRole.LEFT_KNEE) && vrBridge.getShareSetting(TrackerRole.RIGHT_KNEE)
           )
         }
         Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
           Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
-            Text(text = "Knees")
+            Text(text = localI18nObject.knees)
           }
           Column(modifier = Modifier.weight(.5f)) {
             Switch(checked = selected, onCheckedChange = {
@@ -141,13 +143,12 @@ private fun SteamVRList(vrServer: VRServer) {
       Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
         var selected by remember {
           mutableStateOf(
-            vrBridge.getShareSetting(TrackerRole.LEFT_ELBOW) &&
-                vrBridge.getShareSetting(TrackerRole.RIGHT_ELBOW)
+            vrBridge.getShareSetting(TrackerRole.LEFT_ELBOW) && vrBridge.getShareSetting(TrackerRole.RIGHT_ELBOW)
           )
         }
         Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
           Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
-            Text(text = "Elbows")
+            Text(text = localI18nObject.elbows)
           }
           Column(modifier = Modifier.weight(.5f)) {
             Switch(checked = selected, onCheckedChange = {

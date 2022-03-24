@@ -39,41 +39,47 @@ import io.eiren.util.logging.LogManager
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import me.ftmc.i18n.Body
 import org.apache.commons.lang3.StringUtils
 import java.io.File
 import kotlin.math.sqrt
 
+private lateinit var localI18nObject: Body
+
 @Composable
 fun BodyPage(vrServer: VRServer) {
+  localI18nObject = globalI18nObject.body
   Column(modifier = Modifier.fillMaxSize().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
-      var reseting by remember { mutableStateOf(false) }
-      var resetButtonText by remember { mutableStateOf("Reset") }
+      var resetting by remember { mutableStateOf(false) }
+      var resetButtonText by remember { mutableStateOf(localI18nObject.reset) }
       Button(
         onClick = {
           MainScope().launch {
-            reseting = true
-            resetButtonText = "Resetting..."
+            resetting = true
+            resetButtonText = localI18nObject.resetting
             vrServer.humanPoseProcessor.resetAllSkeletonConfigs()
             vrServer.humanPoseProcessor.skeletonConfig.saveToConfig(vrServer.config)
             vrServer.saveConfig()
             delay(3000L)
-            reseting = false
-            resetButtonText = "Reset"
+            resetting = false
+            resetButtonText = localI18nObject.reset
           }
-        }, enabled = !reseting
+        }, enabled = !resetting
       ) {
         Text(text = resetButtonText)
       }
       var autoBoneShow by remember { mutableStateOf(false) }
-      if (autoBoneShow){ AutoBoneWindow({ autoBoneShow = false }, vrServer) }
-      Text(text = "Body Proportions", style = MaterialTheme.typography.h5)
+      if (autoBoneShow) {
+        AutoBoneWindow({ autoBoneShow = false }, vrServer)
+      }
+      Text(text = localI18nObject.title, style = MaterialTheme.typography.h5)
       Button(onClick = { autoBoneShow = true }) {
-        Text(text = "Auto")
+        Text(text = localI18nObject.auto)
       }
     }
     Spacer(Modifier.height(4.dp))
@@ -89,7 +95,7 @@ private fun SkeletionList(vrServer: VRServer) {
     for (config in SkeletonConfigValue.values) {
       Row(verticalAlignment = Alignment.CenterVertically) {
         Column(modifier = Modifier.weight(.3f), horizontalAlignment = Alignment.End) {
-          Text(text = config.name)
+          Text(text = localI18nObject.config[config])
         }
         Spacer(modifier = Modifier.width(4.dp))
         Row(modifier = Modifier.weight(.7f).width(IntrinsicSize.Min), verticalAlignment = Alignment.CenterVertically) {
@@ -125,20 +131,20 @@ private fun SkeletionList(vrServer: VRServer) {
           Spacer(modifier = Modifier.width(4.dp))
           Column(modifier = Modifier.weight(.25f), horizontalAlignment = Alignment.CenterHorizontally) {
             var reseting by remember { mutableStateOf(false) }
-            var resetButtonText by remember { mutableStateOf("Reset") }
+            var resetButtonText by remember { mutableStateOf(localI18nObject.reset) }
             when (config) {
               SkeletonConfigValue.TORSO, SkeletonConfigValue.LEGS_LENGTH -> {
                 TextButton(
                   onClick = {
                     MainScope().launch {
                       reseting = true
-                      resetButtonText = "Resetting..."
+                      resetButtonText = localI18nObject.resetting
                       vrServer.humanPoseProcessor.resetSkeletonConfig(config)
                       vrServer.humanPoseProcessor.skeletonConfig.saveToConfig(vrServer.config)
                       vrServer.saveConfig()
                       delay(3000L)
                       reseting = false
-                      resetButtonText = "Reset"
+                      resetButtonText = localI18nObject.reset
                     }
                   },
                   enabled = !reseting
@@ -152,7 +158,7 @@ private fun SkeletionList(vrServer: VRServer) {
                   vrServer.humanPoseProcessor.skeletonConfig.saveToConfig(vrServer.config)
                   vrServer.saveConfig()
                 }) {
-                  Text(text = "Reset", style = MaterialTheme.typography.body2)
+                  Text(text = localI18nObject.reset, style = MaterialTheme.typography.body2)
                 }
               }
             }
@@ -179,14 +185,15 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
     resizable = false,
     state = WindowState(size = DpSize(600.dp, 150.dp))
   ) {
-    var recordButtonText by remember { mutableStateOf("Start Recording") }
+    val windowI18nObject = localI18nObject.autoWindow
+    var recordButtonText by remember { mutableStateOf(windowI18nObject.record.start) }
     var recordButtonEnable by remember { mutableStateOf(true) }
-    var saveRecordButtonText by remember { mutableStateOf("Save Recording") }
+    var saveRecordButtonText by remember { mutableStateOf(windowI18nObject.save.start) }
     var saveRecordButtonEnable by remember { mutableStateOf(false) }
-    var adjustButtonText by remember { mutableStateOf("Auto-Adjust") }
+    var adjustButtonText by remember { mutableStateOf(windowI18nObject.autoAdjust.start) }
     var adjustButtonEnable by remember { mutableStateOf(false) }
     var applyButtonEnable by remember { mutableStateOf(false) }
-    var processText by remember { mutableStateOf("Processing has not been started...") }
+    var processText by remember { mutableStateOf(windowI18nObject.process) }
     var lengthsText by remember { mutableStateOf("") }
     val saveDir = remember { File("Recordings") }
     val loadDir = remember { File("LoadRecordings") }
@@ -280,7 +287,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
         try {
           if (poseRecorder.isReadyToRecord) {
             recordButtonEnable = false
-            recordButtonText = "Recording..."
+            recordButtonText = windowI18nObject.record.recording
             val sampleCount = vrServer.config.getInt("autobone.sampleCount", 1000)
             val sampleRate = vrServer.config.getFloat("autobone.sampleRateMs", 20f).toLong()
             val framesFuture = poseRecorder.startFrameRecording(sampleCount, sampleRate)
@@ -291,17 +298,17 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
             adjustButtonEnable = true
 
             if (vrServer.config.getBoolean("autobone.saveRecordings", false)) {
-              recordButtonText = "Saving..."
+              recordButtonText = windowI18nObject.record.saving
               saveRecording(frames)
             }
           } else {
-            recordButtonText = "Not Ready"
+            recordButtonText = windowI18nObject.record.ready
             LogManager.log.severe("[AutoBone] Unable to record...")
             Thread.sleep(3000) // Wait for 3 seconds
             return@Thread
           }
         } catch (e: Exception) {
-          recordButtonText = "Recording Failed"
+          recordButtonText = windowI18nObject.record.failed
           LogManager.log.severe("[AutoBone] Failed recording!", e)
           try {
             Thread.sleep(3000) // Wait for 3 seconds
@@ -309,7 +316,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
             // Ignore
           }
         } finally {
-          recordButtonText = "Start Recording"
+          recordButtonText = windowI18nObject.record.start
           recordButtonEnable = true
         }
       }
@@ -319,24 +326,24 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
         try {
           val framesFuture = poseRecorder.framesAsync
           if (framesFuture != null) {
-            saveRecordButtonText = "Waiting for Recording..."
+            saveRecordButtonText = windowI18nObject.save.waiting
             val frames = framesFuture.get()
 
             check(frames.trackerCount > 0) { "Recording has no trackers" }
 
             check(frames.maxFrameCount > 0) { "Recording has no frames" }
 
-            saveRecordButtonText = "Saving..."
+            saveRecordButtonText = windowI18nObject.save.saving
             saveRecording(frames)
 
-            saveRecordButtonText = "Recording Saved!"
+            saveRecordButtonText = windowI18nObject.save.saved
 
             try {
               Thread.sleep(3000L)
             } catch (_: Exception) {
             }
           } else {
-            saveRecordButtonText = "No Recording..."
+            saveRecordButtonText = windowI18nObject.save.ready
             LogManager.log.severe("[AutoBone] Unable to save, no recording was done...")
             try {
               Thread.sleep(3000) // Wait for 3 seconds
@@ -346,7 +353,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
             return@Thread
           }
         } catch (e: Exception) {
-          saveRecordButtonText = "Saving Failed"
+          saveRecordButtonText = windowI18nObject.save.failed
           LogManager.log.severe("[AutoBone] Failed to save recording!", e)
           try {
             Thread.sleep(3000) // Wait for 3 seconds
@@ -359,7 +366,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
     val autoAdjThread = remember {
       Thread {
         try {
-          adjustButtonText = "Loading..."
+          adjustButtonText = windowI18nObject.autoAdjust.loading
           val frameRecordings = loadRecordings()
 
           if (frameRecordings.isNotEmpty()) {
@@ -367,7 +374,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
           } else {
             val framesFuture = poseRecorder.framesAsync
             if (framesFuture != null) {
-              adjustButtonText = "Waiting for Recording..."
+              adjustButtonText = windowI18nObject.autoAdjust.waiting
               val frames = framesFuture.get()
 
               check(frames.trackerCount > 0) { "Recording has no trackers" }
@@ -376,7 +383,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
 
               frameRecordings.add(Pair("<Recording>", frames))
             } else {
-              adjustButtonText = "No Recordings"
+              adjustButtonText = windowI18nObject.autoAdjust.ready
               LogManager.log.severe("[AutoBone] No recordings found in \"" + loadDir.path + "\" and no recording was done...")
               try {
                 Thread.sleep(3000L)
@@ -385,7 +392,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
             }
           }
 
-          adjustButtonText = "Processing..."
+          adjustButtonText = windowI18nObject.autoAdjust.processing
           LogManager.log.info("[AutoBone] Processing frames...")
           val heightPercentError = mutableListOf<Float>()
           for (recording in frameRecordings) {
@@ -448,7 +455,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
             )
           }
         } catch (e: Exception) {
-          adjustButtonText = "Failed"
+          adjustButtonText = windowI18nObject.autoAdjust.failed
 
           LogManager.log.severe("[AutoBone] Failed adjustment!", e)
           try {
@@ -456,12 +463,12 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
           } catch (_: Exception) {
             // Ignore
           } finally {
-            adjustButtonText = "Auto-Adjust"
+            adjustButtonText = windowI18nObject.autoAdjust.start
           }
         }
       }
     }
-    Column (modifier = Modifier.padding(8.dp)) {
+    Column(modifier = Modifier.padding(8.dp)) {
       Row {
         OutlinedButton(
           onClick = { recordThread.start() },
@@ -491,7 +498,7 @@ private fun AutoBoneWindow(onCloseRequest: () -> Unit, vrServer: VRServer) {
 
           }, enabled = applyButtonEnable
         ) {
-          Text(text = "Apply Values")
+          Text(text = windowI18nObject.apply)
         }
       }
       Spacer(modifier = Modifier.height(4.dp))

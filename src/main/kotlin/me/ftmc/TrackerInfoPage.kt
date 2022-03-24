@@ -43,12 +43,15 @@ import dev.slimevr.vr.trackers.TrackerWithTPS
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+import me.ftmc.i18n.Info
 import kotlin.math.max
 import kotlin.math.min
 
+private lateinit var localI18nObject: Info
 
 @Composable
 fun TrackerPage(vrServer: VRServer, trackersList: MutableList<Tracker>) {
+  localI18nObject = globalI18nObject.info
   Column(modifier = Modifier.fillMaxSize().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
     Row(
       horizontalArrangement = Arrangement.SpaceBetween,
@@ -56,28 +59,28 @@ fun TrackerPage(vrServer: VRServer, trackersList: MutableList<Tracker>) {
       modifier = Modifier.fillMaxWidth()
     ) {
       var reseting by remember { mutableStateOf(false) }
-      var resetButtonText by remember { mutableStateOf("Reset") }
+      var resetButtonText by remember { mutableStateOf(localI18nObject.reset) }
       Button(
         onClick = {
           MainScope().launch {
             reseting = true
-            resetButtonText = "Resetting..."
+            resetButtonText = localI18nObject.resetting
             vrServer.resetTrackers()
             delay(3000L)
             reseting = false
-            resetButtonText = "Reset"
+            resetButtonText = localI18nObject.reset
           }
         }, enabled = !reseting
       ) {
         Text(text = resetButtonText)
       }
-      Text(text = "Trackers List", style = MaterialTheme.typography.h5)
+      Text(text = localI18nObject.title, style = MaterialTheme.typography.h5)
       Button(onClick = {
         MainScope().launch {
           vrServer.resetTrackersYaw()
         }
       }) {
-        Text(text = "Fast Reset")
+        Text(text = localI18nObject.fastReset)
       }
     }
     Spacer(Modifier.height(4.dp))
@@ -104,7 +107,7 @@ private fun TrackersList(vrServer: VRServer, trackersList: MutableList<Tracker>)
     horizontalAlignment = Alignment.CenterHorizontally
   ) {
     for ((simpleName, trackers) in trackersMap) {
-      Text(text = simpleName, style = MaterialTheme.typography.h6)
+      Text(text = localI18nObject.simpleName[simpleName], style = MaterialTheme.typography.h6)
       if (trackers.size % 2 == 0) {
         trackers.forEachIndexed { index, tracker ->
           if (index % 2 == 0) {
@@ -168,27 +171,27 @@ private fun TrackerInfoCard(
       }
       if (realTracker.hasRotation()) {
         Row {
-          Text(text = "Rotation: " + rotationString, style = MaterialTheme.typography.body2)
+          Text(text = localI18nObject.rotation + rotationString, style = MaterialTheme.typography.body2)
         }
       }
       if (tracker.hasPosition()) {
-        Text(text = "Position: " + positionString, style = MaterialTheme.typography.body2)
+        Text(text = localI18nObject.position + positionString, style = MaterialTheme.typography.body2)
       }
       if (realTracker is TrackerWithTPS) {
-        Text(text = "TPS: " + tps, style = MaterialTheme.typography.body2)
+        Text(text = localI18nObject.tps + tps, style = MaterialTheme.typography.body2)
       }
       if (realTracker is IMUTracker) {
-        Text(text = "Ping: " + ping, style = MaterialTheme.typography.body2)
-        Text(text = "Signal: " + signalStrength, style = MaterialTheme.typography.body2)
+        Text(text = localI18nObject.ping + ping, style = MaterialTheme.typography.body2)
+        Text(text = localI18nObject.signal + signalStrength, style = MaterialTheme.typography.body2)
       }
       if (realTracker is TrackerWithBattery) {
-        Text(text = "Battery: " + battery)
+        Text(text = localI18nObject.battery + battery)
       }
       Text(
-        text = "Status: " + status, style = MaterialTheme.typography.body2
+        text = localI18nObject.status + status, style = MaterialTheme.typography.body2
       )
       Text(
-        text = "Raw: " + rawString, style = MaterialTheme.typography.body2
+        text = localI18nObject.raw + rawString, style = MaterialTheme.typography.body2
       )
     }
   }
@@ -203,7 +206,7 @@ private fun TrackerInfoCard(
         rotationStoreMiddle.toAngles(rotationStore)
         rotationString = String.format("%.2f, %.2f, %.2f", rotationStore[0], rotationStore[1], rotationStore[2])
       }
-      status = tracker.status.toString()
+      status = localI18nObject.trackerStatus[tracker.status]
       if (realTracker is TrackerWithTPS) {
         tps = String.format("%.1f", realTracker.tps)
       }
@@ -261,7 +264,7 @@ private fun IMUTrackerInfo(
         trackerMountingRotationSelected = value.name
         trackerMountingRotationSelectorExpand = false
       }) {
-        Text(text = value.name)
+        Text(text = localI18nObject.imu[value])
       }
     }
   }
@@ -287,7 +290,7 @@ private fun EditableTrackerInfo(vrServer: VRServer, tracker: Tracker) {
         positionSelected = value.name
         positionSelectorExpand = false
       }) {
-        Text(text = value.name)
+        Text(text = localI18nObject.trackerPosition[value])
       }
     }
   }

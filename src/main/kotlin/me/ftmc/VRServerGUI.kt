@@ -30,9 +30,13 @@ import dev.slimevr.VRServer
 import dev.slimevr.platform.windows.WindowsNamedPipeBridge
 import dev.slimevr.vr.processor.TransformNode
 import dev.slimevr.vr.trackers.Tracker
+import me.ftmc.i18n.Gui
+
+private lateinit var localI18nObject: Gui
 
 @Composable
 fun VRServerGUI(vrServer: VRServer) {
+  localI18nObject = globalI18nObject.gui
   val trackerList = remember { mutableListOf<Tracker>() }
   var nodeList by remember { mutableStateOf(arrayOf<TransformNode>()) }
   var loading by remember { mutableStateOf(false) }
@@ -62,7 +66,7 @@ fun VRServerGUI(vrServer: VRServer) {
         NavigationRailItem(icon = { Icon(imageVector = icon, contentDescription = title) },
           selected = selected == title,
           onClick = { selected = title },
-          label = { Text(text = title) })
+          label = { Text(text = localI18nObject[title]) })
       }
     }
     if (!loading) {

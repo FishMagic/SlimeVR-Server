@@ -11,6 +11,7 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -27,26 +28,40 @@ import androidx.compose.ui.window.WindowState
 import androidx.compose.ui.window.application
 import dev.slimevr.VRServer
 import io.eiren.util.logging.LogManager
+import kotlinx.serialization.ExperimentalSerializationApi
+import kotlinx.serialization.json.Json
+import kotlinx.serialization.json.decodeFromStream
+import me.ftmc.i18n.Main
+import me.ftmc.i18n.i18nData
 import org.apache.commons.lang3.JavaVersion
 import org.apache.commons.lang3.SystemUtils
 import java.io.File
+import java.io.FileInputStream
 import java.io.IOException
 import java.net.ServerSocket
 
+lateinit var globalI18nObject: i18nData
+private lateinit var localI18nObject: Main
+
+@OptIn(ExperimentalSerializationApi::class)
 fun main() = application {
+  val vrServer = remember { VRServer() }
+  val language = vrServer.config.getString("i18n", "zh-CN")
+  globalI18nObject = Json.decodeFromStream(FileInputStream("i18n/${language}.json"))
+  localI18nObject = globalI18nObject.main
   Window(
     onCloseRequest = ::exitApplication,
-    title = "SlimeVR: Server",
+    title = localI18nObject.title,
     icon = painterResource("icon256.png"),
     state = WindowState(size = DpSize(width = 950.dp, height = 850.dp)),
     resizable = false
   ) {
-    init()
-
-    val vrServer = VRServer()
-    vrServer.start()
     MaterialTheme {
       Surface {
+        LaunchedEffect(true) {
+          vrServer.start()
+        }
+        init()
         VRServerGUI(vrServer)
       }
     }
@@ -70,15 +85,15 @@ private fun ApplicationScope.init() {
   if (versionWarning) {
     Dialog(
       onCloseRequest = ::exitApplication,
-      title = "SlimeVR: Java Runtime Mismatch",
+      title = localI18nObject.version.title,
       state = DialogState(size = DpSize(450.dp, 150.dp)),
       resizable = false
     ) {
       Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Text(text = "SlimeVR start-up error!\nA minimum of Java 11 is required.")
+        Text(text = localI18nObject.version.content)
         Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
           Button(onClick = { exitApplication() }) {
-            Text(text = "OK")
+            Text(text = localI18nObject.ok)
           }
         }
       }
@@ -95,17 +110,17 @@ private fun ApplicationScope.init() {
     busyWarning = true
   }
   if (busyWarning) {
-    Dialog (
+    Dialog(
       onCloseRequest = ::exitApplication,
-      title = "SlimeVR: Ports are busy",
+      title = localI18nObject.busy.title,
       state = DialogState(size = DpSize(450.dp, 150.dp)),
       resizable = false
     ) {
       Column(modifier = Modifier.fillMaxSize().padding(8.dp)) {
-        Text(text = "SlimeVR start-up error!\nRequired ports are busy.\nMake sure there is no other instance of SlimeVR Server running.")
+        Text(text = localI18nObject.busy.content)
         Row(horizontalArrangement = Arrangement.End, modifier = Modifier.fillMaxWidth()) {
           Button(onClick = { exitApplication() }) {
-            Text(text = "OK")
+            Text(text = localI18nObject.ok)
           }
         }
       }

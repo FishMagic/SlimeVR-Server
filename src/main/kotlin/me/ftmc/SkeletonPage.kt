@@ -27,17 +27,20 @@ import com.jme3.math.Quaternion
 import com.jme3.math.Vector3f
 import dev.slimevr.vr.processor.TransformNode
 import kotlinx.coroutines.delay
+import me.ftmc.i18n.Skeleton
 
+private lateinit var localI18nObject: Skeleton
 
 @Composable
 fun SkeletonPage(nodeList: Array<TransformNode>) {
+  localI18nObject = globalI18nObject.skeleton
   Column(modifier = Modifier.fillMaxSize().padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
     Row(
       horizontalArrangement = Arrangement.Center,
       verticalAlignment = Alignment.CenterVertically,
       modifier = Modifier.fillMaxWidth()
     ) {
-      Text(text = "Skeleton", style = MaterialTheme.typography.h5)
+      Text(text = localI18nObject.title, style = MaterialTheme.typography.h5)
     }
     Spacer(Modifier.height(4.dp))
     Row(modifier = Modifier.fillMaxHeight(), verticalAlignment = Alignment.Top) {
@@ -55,7 +58,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.End
       ) {
-        Text(text = "Joint")
+        Text(text = localI18nObject.joint)
       }
       Spacer(modifier = Modifier.width(4.dp))
       Column(
@@ -63,7 +66,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Text(text = "X")
+        Text(text = localI18nObject.x)
       }
       Spacer(modifier = Modifier.width(4.dp))
       Column(
@@ -71,7 +74,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Text(text = "Y")
+        Text(text = localI18nObject.y)
       }
       Spacer(modifier = Modifier.width(4.dp))
       Column(
@@ -79,7 +82,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Text(text = "Z")
+        Text(text = localI18nObject.z)
       }
       Spacer(modifier = Modifier.width(4.dp))
       Column(
@@ -87,7 +90,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Text(text = "Pitch")
+        Text(text = localI18nObject.pitch)
       }
       Spacer(modifier = Modifier.width(4.dp))
       Column(
@@ -95,7 +98,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Text(text = "Yaw")
+        Text(text = localI18nObject.yaw)
       }
       Spacer(modifier = Modifier.width(4.dp))
       Column(
@@ -103,7 +106,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
         verticalArrangement = Arrangement.Bottom,
         horizontalAlignment = Alignment.CenterHorizontally
       ) {
-        Text(text = "Roll")
+        Text(text = localI18nObject.roll)
       }
     }
     Divider(modifier = Modifier.fillMaxWidth())
@@ -118,7 +121,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
             var a2 by remember { mutableStateOf("") }
             var a3 by remember { mutableStateOf("") }
             Column(modifier = Modifier.weight(.4f), horizontalAlignment = Alignment.End) {
-              Text(text = node.name)
+              Text(text = localI18nObject.name[node.name])
             }
             Spacer(modifier = Modifier.width(4.dp))
             Column(modifier = Modifier.weight(.1f), horizontalAlignment = Alignment.CenterHorizontally) {

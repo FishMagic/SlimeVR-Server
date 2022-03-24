@@ -133,7 +133,8 @@
         "loading": "加载中",
         "waiting": "等待录制",
         "ready": "无录制",
-        "processing":"操作中"
+        "processing":"操作中",
+        "failed": "处理失败"
       },
       "apply": "应用",
       "process": "尚未进行处理"

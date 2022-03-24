@@ -133,7 +133,8 @@
         "loading": "Loading...",
         "waiting": "Waiting for Recording...",
         "ready": "No Recordings",
-        "processing":"Processing..."
+        "processing":"Processing...",
+        "failed": "Failed!"
       },
       "apply": "Apply Values",
       "process": "Processing has not been started..."
