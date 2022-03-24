@@ -51,46 +51,115 @@ fun SteamVRPage(vrServer: VRServer) {
 private fun SteamVRList(vrServer: VRServer) {
   val vrBridge = vrServer.getVRBridge(WindowsNamedPipeBridge::class.java)
   Column(modifier = Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally) {
-    TrackerRole.values.forEachIndexed { index, role ->
-      Row(
-        verticalAlignment = Alignment.CenterVertically,
-        modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.Center
-      ) {
-        if (index % 2 == 0) {
-          Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
-            var selected by remember { mutableStateOf(vrBridge.getShareSetting(role)) }
-            Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-              Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
-                Text(text = role.name)
-              }
-              Column(modifier = Modifier.weight(.5f)) {
-                Switch(checked = selected, onCheckedChange = {
-                  vrBridge.changeShareSettings(role, it)
-                  selected = it
-                })
-              }
-            }
+    Row(
+      modifier = Modifier.fillMaxWidth(),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Center
+    ) {
+      Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
+        var selected by remember { mutableStateOf(vrBridge.getShareSetting(TrackerRole.WAIST)) }
+        Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+          Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
+            Text(text = "Waist")
           }
-          Spacer(Modifier.width(4.dp))
-          Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
-            var selected by remember { mutableStateOf(vrBridge.getShareSetting(role)) }
-            Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
-              Column(modifier = Modifier.weight(.6f), horizontalAlignment = Alignment.End) {
-                Text(text = TrackerRole.values[index + 1].name)
-              }
-              Column(modifier = Modifier.weight(.4f)) {
-                Switch(checked = selected, onCheckedChange = {
-                  vrBridge.changeShareSettings(TrackerRole.values[index + 1], it)
-                  selected = it
-                })
-              }
-            }
+          Column(modifier = Modifier.weight(.5f)) {
+            Switch(checked = selected, onCheckedChange = {
+              vrBridge.changeShareSettings(TrackerRole.WAIST, it)
+              selected = it
+            })
           }
         }
       }
-      if (index % 2 == 0) {
-        Divider(modifier = Modifier.fillMaxWidth())
+      Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
+        var selected by remember {
+          mutableStateOf(
+            vrBridge.getShareSetting(TrackerRole.LEFT_FOOT) &&
+                vrBridge.getShareSetting(TrackerRole.RIGHT_FOOT)
+          )
+        }
+        Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+          Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
+            Text(text = "Legs")
+          }
+          Column(modifier = Modifier.weight(.5f)) {
+            Switch(checked = selected, onCheckedChange = {
+              vrBridge.changeShareSettings(TrackerRole.LEFT_FOOT, it)
+              vrBridge.changeShareSettings(TrackerRole.RIGHT_FOOT, it)
+              selected = it
+            })
+          }
+        }
+      }
+    }
+    Divider(modifier = Modifier.fillMaxWidth())
+    Row(
+      modifier = Modifier.fillMaxWidth(),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Center
+    ) {
+      Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
+        var selected by remember { mutableStateOf(vrBridge.getShareSetting(TrackerRole.CHEST)) }
+        Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+          Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
+            Text(text = "Chest")
+          }
+          Column(modifier = Modifier.weight(.5f)) {
+            Switch(checked = selected, onCheckedChange = {
+              vrBridge.changeShareSettings(TrackerRole.CHEST, it)
+              selected = it
+            })
+          }
+        }
+      }
+      Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
+        var selected by remember {
+          mutableStateOf(
+            vrBridge.getShareSetting(TrackerRole.LEFT_KNEE) &&
+                vrBridge.getShareSetting(TrackerRole.RIGHT_KNEE)
+          )
+        }
+        Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+          Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
+            Text(text = "Knees")
+          }
+          Column(modifier = Modifier.weight(.5f)) {
+            Switch(checked = selected, onCheckedChange = {
+              vrBridge.changeShareSettings(TrackerRole.LEFT_KNEE, it)
+              vrBridge.changeShareSettings(TrackerRole.RIGHT_KNEE, it)
+              selected = it
+            })
+          }
+        }
+      }
+    }
+    Divider(modifier = Modifier.fillMaxWidth())
+    Row(
+      modifier = Modifier.fillMaxWidth(),
+      verticalAlignment = Alignment.CenterVertically,
+      horizontalArrangement = Arrangement.Center
+    ) {
+      Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
+        var selected by remember {
+          mutableStateOf(
+            vrBridge.getShareSetting(TrackerRole.LEFT_ELBOW) &&
+                vrBridge.getShareSetting(TrackerRole.RIGHT_ELBOW)
+          )
+        }
+        Row(horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+          Column(modifier = Modifier.weight(.5f), horizontalAlignment = Alignment.End) {
+            Text(text = "Elbows")
+          }
+          Column(modifier = Modifier.weight(.5f)) {
+            Switch(checked = selected, onCheckedChange = {
+              vrBridge.changeShareSettings(TrackerRole.LEFT_ELBOW, it)
+              vrBridge.changeShareSettings(TrackerRole.RIGHT_ELBOW, it)
+              selected = it
+            })
+          }
+        }
+      }
+      Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.width(400.dp)) {
+
       }
     }
   }
