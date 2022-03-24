@@ -205,7 +205,7 @@ private fun TrackerInfoCard(
       }
       status = tracker.status.toString()
       if (realTracker is TrackerWithTPS) {
-        tps = String.format("%.1f", tps)
+        tps = String.format("%.1f", realTracker.tps)
       }
       if (realTracker is TrackerWithBattery) {
         val level = realTracker.batteryLevel
