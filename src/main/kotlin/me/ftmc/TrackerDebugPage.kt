@@ -124,19 +124,19 @@ private fun TrackerDebugCard(tracker: Tracker, cardWidth: Int) {
         Text(text = realTracker.name, style = MaterialTheme.typography.subtitle1)
       }
       if (realTracker is IMUTracker) {
-        Text(text = String.format("Quat: %s", rotQuat))
-        Text(text = String.format("Raw Mag: %s", rawMag))
-        Text(text = String.format("Gyro Fix: %s", gyroFix))
-        Text(text = String.format("Cal: %s", calibration))
-        Text(text = String.format("Mag Acc: %s", magAccuracy))
-        Text(text = String.format("Correction: %s", correction))
-        Text(text = String.format("RotAdj: %s", rotAdj))
+        Text(text = "Quat: " + rotQuat)
+        Text(text = "Raw Mag: " + rawMag)
+        Text(text = "Gyro Fix: " + gyroFix)
+        Text(text = "Cal: " + calibration)
+        Text(text = "Mag Acc: " + magAccuracy)
+        Text(text = "Correction: " + correction)
+        Text(text = "RotAdj: " + rotAdj)
       }
       if (realTracker is ReferenceAdjustedTracker<*>) {
-        Text(text = String.format("Att Fix: %s", adj))
-        Text(text = String.format("Yaw Fix: %s", adjYaw))
-        Text(text = String.format("Gyro Fix: %s", adjGyro))
-        Text(text = String.format("Temp: %s", temperature))
+        Text(text = "Att Fix: %s" + adj)
+        Text(text = "Yaw Fix: %s" + adjYaw)
+        Text(text = "Gyro Fix: %s" + adjGyro)
+        Text(text = "Temp: %s" + temperature)
       }
     }
   }

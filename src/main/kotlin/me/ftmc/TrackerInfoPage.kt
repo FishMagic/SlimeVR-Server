@@ -144,17 +144,17 @@ private fun TrackerInfoCard(
   vrServer: VRServer, tracker: Tracker, cardWidth: Int
 ) {
   val realTracker = if (tracker !is ReferenceAdjustedTracker<*>) tracker else tracker.getTracker()
-  val position = remember { mutableListOf(0f, 0f, 0f) }
+  var positionString by remember { mutableStateOf("") }
   val positionStore = remember { Vector3f() }
-  val rotation = remember { mutableListOf(0f, 0f, 0f) }
+  var rotationString by remember { mutableStateOf("") }
   val rotationStoreMiddle = remember { Quaternion() }
   val rotationStore = remember { FloatArray(3) }
-  var tps by remember { mutableStateOf(0f) }
-  var ping by remember { mutableStateOf(0) }
+  var tps by remember { mutableStateOf("") }
+  var ping by remember { mutableStateOf("") }
   var signalStrength by remember { mutableStateOf("") }
   var status by remember { mutableStateOf("") }
   var battery by remember { mutableStateOf("") }
-  val raw = remember { mutableListOf(0f, 0f, 0f) }
+  var rawString by remember { mutableStateOf("") }
   Card(modifier = Modifier.width(cardWidth.dp)) {
     Column(modifier = Modifier.padding(8.dp), horizontalAlignment = Alignment.CenterHorizontally) {
       Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
@@ -168,35 +168,27 @@ private fun TrackerInfoCard(
       }
       if (realTracker.hasRotation()) {
         Row {
-          Text(
-            text = String.format("Rotation: %.2f, %.2f, %.2f", rotation[0], rotation[1], rotation[2]),
-            style = MaterialTheme.typography.body2
-          )
+          Text(text = "Rotation: " + rotationString, style = MaterialTheme.typography.body2)
         }
       }
       if (tracker.hasPosition()) {
-        Text(
-          text = String.format("Position: %.2f, %.2f, %.2f", position[0], position[1], position[2]),
-          style = MaterialTheme.typography.body2
-        )
+        Text(text = "Position: " + positionString, style = MaterialTheme.typography.body2)
       }
       if (realTracker is TrackerWithTPS) {
-        Text(
-          text = String.format("TPS: %.1f", tps), style = MaterialTheme.typography.body2
-        )
+        Text(text = "TPS: " + tps, style = MaterialTheme.typography.body2)
       }
       if (realTracker is IMUTracker) {
-        Text(text = "Ping: $ping", style = MaterialTheme.typography.body2)
-        Text(text = "Signal: $signalStrength", style = MaterialTheme.typography.body2)
+        Text(text = "Ping: " + ping, style = MaterialTheme.typography.body2)
+        Text(text = "Signal: " + signalStrength, style = MaterialTheme.typography.body2)
       }
       if (realTracker is TrackerWithBattery) {
-        Text(text = "Battery: $battery")
+        Text(text = "Battery: " + battery)
       }
       Text(
-        text = "Status: $status", style = MaterialTheme.typography.body2
+        text = "Status: " + status, style = MaterialTheme.typography.body2
       )
       Text(
-        text = String.format("Raw: %.2f, %.2f, %.2f", raw[0], raw[1], raw[2]), style = MaterialTheme.typography.body2
+        text = "Raw: " + rawString, style = MaterialTheme.typography.body2
       )
     }
   }
@@ -204,20 +196,16 @@ private fun TrackerInfoCard(
     while (true) {
       if (tracker.hasPosition()) {
         tracker.getPosition(positionStore)
-        position[0] = positionStore.x
-        position[1] = positionStore.y
-        position[2] = positionStore.z
+        positionString = String.format("%.2f, %.2f, %.2f", positionStore.x, positionStore.y, positionStore.z)
       }
       if (tracker.hasRotation()) {
         tracker.getRotation(rotationStoreMiddle)
         rotationStoreMiddle.toAngles(rotationStore)
-        rotation[0] = rotationStore[0]
-        rotation[1] = rotationStore[1]
-        rotation[2] = rotationStore[2]
+        rotationString = String.format("%.2f, %.2f, %.2f", rotationStore[0], rotationStore[1], rotationStore[2])
       }
       status = tracker.status.toString()
       if (realTracker is TrackerWithTPS) {
-        tps = realTracker.tps
+        tps = String.format("%.1f", tps)
       }
       if (realTracker is TrackerWithBattery) {
         val level = realTracker.batteryLevel
@@ -231,7 +219,7 @@ private fun TrackerInfoCard(
         }
       }
       if (realTracker is IMUTracker) {
-        ping = realTracker.ping
+        ping = realTracker.ping.toString()
         val signal = realTracker.signalStrength
         if (signal == -1) {
           signalStrength = "N/A"
@@ -243,9 +231,7 @@ private fun TrackerInfoCard(
       }
       realTracker.getRotation(rotationStoreMiddle)
       rotationStoreMiddle.toAngles(rotationStore)
-      raw[0] = rotationStore[0]
-      raw[1] = rotationStore[1]
-      raw[2] = rotationStore[2]
+      rawString = String.format("%.2f, %.2f, %.2f", rotationStore[0], rotationStore[1], rotationStore[2])
       delay(500L)
     }
 
