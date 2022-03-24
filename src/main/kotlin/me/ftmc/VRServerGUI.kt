@@ -74,6 +74,7 @@ fun VRServerGUI(vrServer: VRServer) {
         "Body" -> BodyPage(vrServer)
         "Steam VR" -> SteamVRPage(vrServer)
         "Skeleton" -> SkeletonPage(nodeList)
+        "WiFi" -> WiFiPage()
       }
     } else {
       Column(
@@ -86,3 +87,4 @@ fun VRServerGUI(vrServer: VRServer) {
     }
   }
 }
+
