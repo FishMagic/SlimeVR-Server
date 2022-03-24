@@ -12,7 +12,7 @@ plugins {
 //	id 'application'
 	kotlin("jvm") version "1.6.10"
 	id("org.jetbrains.compose") version "1.1.0"
-	kotlin("plugin.serialization") version "1.6.10"
+//	kotlin("plugin.serialization") version "1.6.10"
 }
 
 allprojects {
@@ -39,6 +39,7 @@ dependencies {
 	implementation(compose.desktop.currentOs)
 	implementation("org.jetbrains.compose.material:material-icons-extended:1.1.0")
 	implementation("org.jetbrains.compose.material:material-icons-extended-desktop:1.1.0")
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.2")
 
 
 	// Use JUnit test framework
