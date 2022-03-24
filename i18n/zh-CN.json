@@ -15,16 +15,16 @@
     "trackers": "追踪器",
     "debug": "调试",
     "body": "身体",
-    "steam-vr": "Steam VR",
+    "steamVr": "Steam VR",
     "skeleton": "骨架",
     "wifi": "WiFi"
   },
   "info": {
     "reset": "重置",
     "resetting": "重置中",
-    "fast-reset": "快速重置",
+    "fastReset": "快速重置",
     "title": "追踪器列表",
-    "simple-name": {
+    "simpleName": {
       "ComputedHumanPoseTracker": "ComputedHumanPoseTracker",
       "ComputedTracker": "ComputedTracker",
       "HMDTracker": "HMDTracker",
@@ -50,7 +50,7 @@
       "BACK": "后",
       "RIGHT": "右"
     },
-    "tracker-position": {
+    "trackerPosition": {
       "NONE": "无",
       "HMD": "头显",
       "CHEST": "胸部",
@@ -67,7 +67,7 @@
       "LEFT_ELBOW": "左肘",
       "RIGHT_ELBOW": "右肘"
     },
-    "tracker-status": {
+    "trackerStatus": {
       "DISCONNECTED": "断开",
       "OK": "正常",
       "BUSY": "忙碌",
@@ -78,15 +78,15 @@
   "debug": {
     "title": "控制器调试",
     "quat": "Quat: ",
-    "raw-mag": "Raw Mag: ",
-    "gyro-fix": "Gyro Fix: ",
+    "rawMag": "Raw Mag: ",
+    "gyroFix": "Gyro Fix: ",
     "cal": "Cal: ",
-    "mag-acc": "Mag Acc: ",
+    "magAcc": "Mag Acc: ",
     "correction": "Correction: ",
     "rotadj": "RotAdj: ",
-    "att-fix": "Att Fix: ",
-    "yaw-fix": "Yaw Fix",
-    "adj-gyro":"Gyro Fix: ",
+    "attFix": "Att Fix: ",
+    "yawFix": "Yaw Fix",
+    "adjGyro":"Gyro Fix: ",
     "temp": "Temp"
   },
   "body": {
@@ -111,7 +111,7 @@
       "CONTROLLER_DISTANCE_Y": "控制器距离（Y轴）",
       "ELBOW_DISTANCE": "肘部距离"
     },
-    "auto-window": {
+    "autoWindow": {
       "title": "SlimeVR: 自动骨架配置",
       "record": {
         "start": "开始录制",
@@ -128,7 +128,7 @@
         "ready": "无录制",
         "failed": "保存失败"
       },
-      "auto-adjust": {
+      "autoAdjust": {
         "start": "自动调整",
         "loading": "加载中",
         "waiting": "等待录制",
@@ -139,7 +139,7 @@
       "process": "尚未进行处理"
     }
   },
-  "steam-vr": {
+  "steamVr": {
     "title": "Steam VR",
     "notice": "可能需要重启 Steam VR 以应用更改",
     "waist": "腰部",
@@ -162,37 +162,37 @@
       "Head": "头部",
       "Neck": "脖子",
       "Chest": "胸部",
-      "Chest-Tracker": "胸部追踪器",
+      "ChestTracker": "胸部追踪器",
       "Waist": "腰部",
       "Hip": "臀部",
-      "Waist-Tracker": "腰部追踪器",
-      "Left-Hip": "左臀",
-      "Left-Knee": "左膝",
-      "Left-Knee-Tracker": "左膝追踪器",
-      "Left-Ankle": "左踝",
-      "Left-Foot": "左脚",
-      "Left-Foot-Tracker": "左脚追踪器",
-      "Right-Hip": "右臀",
-      "Right-Knee": "右膝",
-      "Right-Knee-Tracker": "右膝追踪器",
-      "Right-Ankle": "右踝",
-      "Right-Foot": "右脚",
-      "Right-Foot-Tracker": "右脚追踪器"
+      "WaistTracker": "腰部追踪器",
+      "LeftHip": "左臀",
+      "LeftKnee": "左膝",
+      "LeftKneeTracker": "左膝追踪器",
+      "LeftAnkle": "左踝",
+      "LeftFoot": "左脚",
+      "LeftFootTracker": "左脚追踪器",
+      "RightHip": "右臀",
+      "RightKnee": "右膝",
+      "RightKneeTracker": "右膝追踪器",
+      "RightAnkle": "右踝",
+      "RightFoot": "右脚",
+      "RightFootTracker": "右脚追踪器"
     }
   },
   "wifi": {
     "title": "WiFi",
     "disconnect": "没有已连接的追踪器，请用 USB 连接追踪器",
-    "connected-info": "追踪器已连接至 ",
-    "network-name": "网络名称：",
-    "network-password": "网络密码：",
+    "connectedInfo": "追踪器已连接至 ",
+    "networkName": "网络名称：",
+    "networkPassword": "网络密码：",
     "send": "发送",
     "status": {
       "opened": "端口已打开",
       "written": "WiFi 已写入",
       "done": "完成",
-      "write-error": "WiFi 写入失败",
-      "open-error": "端口打开失败"
+      "writeError": "WiFi 写入失败",
+      "openError": "端口打开失败"
     }
   }
 }
