@@ -1,0 +1,198 @@
+{
+  "main": {
+    "title": "SlimeVR: 服务器",
+    "version": {
+      "title": "SlimeVR: Java运行时缺失",
+      "content": "SlimeVR 启动失败\n请使用 Java 11 以上版本"
+    },
+    "busy": {
+      "title": "SlimeVR: 端口忙碌",
+      "content": "SlimeVR 启动失败\n需要的端口已被占用\n请确认是否有其他 SlimeVR 服务器正在运行"
+    },
+    "ok": "好"
+  },
+  "gui": {
+    "trackers": "追踪器",
+    "debug": "调试",
+    "body": "身体",
+    "steam-vr": "Steam VR",
+    "skeleton": "骨架",
+    "wifi": "WiFi"
+  },
+  "info": {
+    "reset": "重置",
+    "resetting": "重置中",
+    "fast-reset": "快速重置",
+    "title": "追踪器列表",
+    "simple-name": {
+      "ComputedHumanPoseTracker": "ComputedHumanPoseTracker",
+      "ComputedTracker": "ComputedTracker",
+      "HMDTracker": "HMDTracker",
+      "IMUTracker": "IMUTracker",
+      "MPUTracker": "MPUTracker",
+      "PoseFrameTracker": "PoseFrameTracker",
+      "ReferenceAdjustedTracker": "ReferenceAdjustedTracker",
+      "ShareableTracker": "ShareableTracker",
+      "TrackerFrame": "TrackerFrame",
+      "VRTracker": "VRTracker"
+    },
+    "rotation": "旋转: ",
+    "position": "位置: ",
+    "tps": "刷新率: ",
+    "ping": "延迟: ",
+    "signal": "信号强度: ",
+    "battery": "电量: ",
+    "status": "状态: ",
+    "raw": "原始数据: ",
+    "imu": {
+      "FRONT": "前",
+      "LEFT": "左",
+      "BACK": "后",
+      "RIGHT": "右"
+    },
+    "tracker-position": {
+      "NONE": "无",
+      "HMD": "头显",
+      "CHEST": "胸部",
+      "WAIST": "腕部",
+      "HIP": "臀部",
+      "LEFT_LEG": "左腿",
+      "RIGHT_LEG": "右腿",
+      "LEFT_ANKLE": "左踝",
+      "RIGHT_ANKLE": "右踝",
+      "LEFT_FOOT": "左脚",
+      "RIGHT_FOOT": "右脚",
+      "LEFT_CONTROLLER": "左控制器",
+      "RIGHT_CONTROLLER": "右控制器",
+      "LEFT_ELBOW": "左肘",
+      "RIGHT_ELBOW": "右肘"
+    },
+    "tracker-status": {
+      "DISCONNECTED": "断开",
+      "OK": "正常",
+      "BUSY": "忙碌",
+      "ERROR": "错误",
+      "OCCLUDED": "阻塞"
+    }
+  },
+  "debug": {
+    "title": "控制器调试",
+    "quat": "Quat: ",
+    "raw-mag": "Raw Mag: ",
+    "gyro-fix": "Gyro Fix: ",
+    "cal": "Cal: ",
+    "mag-acc": "Mag Acc: ",
+    "correction": "Correction: ",
+    "rotadj": "RotAdj: ",
+    "att-fix": "Att Fix: ",
+    "yaw-fix": "Yaw Fix",
+    "adj-gyro":"Gyro Fix: ",
+    "temp": "Temp"
+  },
+  "body": {
+    "reset": "重置",
+    "resetting": "重置中",
+    "title": "身体比例",
+    "auto": "自动配置",
+    "config": {
+      "HEAD": "头部位移",
+      "NECK": "脖颈长度",
+      "TORSO": "躯干长度",
+      "CHEST": "胸部距离",
+      "WAIST": "腰部距离",
+      "HIP_OFFSET": "臀部位移",
+      "HIPS_WIDTH": "臀部宽度",
+      "LEGS_LENGTH": "腿部长度",
+      "KNEE_HEIGHT": "膝盖高度",
+      "FOOT_LENGTH": "脚部长度",
+      "FOOT_OFFSET": "脚部位移",
+      "SKELETON_OFFSET": "骨架位移",
+      "CONTROLLER_DISTANCE_Z": "控制器距离（Z轴）",
+      "CONTROLLER_DISTANCE_Y": "控制器距离（Y轴）",
+      "ELBOW_DISTANCE": "肘部距离"
+    },
+    "auto-window": {
+      "title": "SlimeVR: 自动骨架配置",
+      "record": {
+        "start": "开始录制",
+        "recording": "录制中",
+        "saving": "保存中",
+        "ready": "未就绪",
+        "failed": "录制失败"
+      },
+      "save": {
+        "start": "保存录制",
+        "waiting": "等待录制",
+        "saving": "保存中",
+        "saved": "录制已保存",
+        "ready": "无录制",
+        "failed": "保存失败"
+      },
+      "auto-adjust": {
+        "start": "自动调整",
+        "loading": "加载中",
+        "waiting": "等待录制",
+        "ready": "无录制",
+        "processing":"操作中"
+      },
+      "apply": "应用",
+      "process": "尚未进行处理"
+    }
+  },
+  "steam-vr": {
+    "title": "Steam VR",
+    "notice": "可能需要重启 Steam VR 以应用更改",
+    "waist": "腰部",
+    "legs": "腿部",
+    "chest": "胸部",
+    "knees": "膝盖",
+    "elbows": "肘部"
+  },
+  "skeleton": {
+    "title": "骨架数据",
+    "joint": "关节",
+    "x": "X",
+    "y": "Y",
+    "z": "Z",
+    "pitch": "Pitch",
+    "yaw": "Yaw",
+    "roll": "Roll",
+    "name": {
+      "HMD": "头显",
+      "Head": "头部",
+      "Neck": "脖子",
+      "Chest": "胸部",
+      "Chest-Tracker": "胸部追踪器",
+      "Waist": "腰部",
+      "Hip": "臀部",
+      "Waist-Tracker": "腰部追踪器",
+      "Left-Hip": "左臀",
+      "Left-Knee": "左膝",
+      "Left-Knee-Tracker": "左膝追踪器",
+      "Left-Ankle": "左踝",
+      "Left-Foot": "左脚",
+      "Left-Foot-Tracker": "左脚追踪器",
+      "Right-Hip": "右臀",
+      "Right-Knee": "右膝",
+      "Right-Knee-Tracker": "右膝追踪器",
+      "Right-Ankle": "右踝",
+      "Right-Foot": "右脚",
+      "Right-Foot-Tracker": "右脚追踪器"
+    }
+  },
+  "wifi": {
+    "title": "WiFi",
+    "disconnect": "没有已连接的追踪器，请用 USB 连接追踪器",
+    "connected-info": "追踪器已连接至 ",
+    "network-name": "网络名称：",
+    "network-password": "网络密码：",
+    "send": "发送",
+    "status": {
+      "opened": "端口已打开",
+      "written": "WiFi 已写入",
+      "done": "完成",
+      "write-error": "WiFi 写入失败",
+      "open-error": "端口打开失败"
+    }
+  }
+}

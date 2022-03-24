@@ -1,0 +1,198 @@
+{
+  "main": {
+    "title": "SlimeVR: Server",
+    "version": {
+      "title": "SlimeVR: Java Runtime Mismatch",
+      "content": "SlimeVR start-up error!\nA minimum of Java 11 is required."
+    },
+    "busy": {
+      "title": "SlimeVR: Ports are busy",
+      "content": "SlimeVR start-up error!\nRequired ports are busy.\nMake sure there is no other instance of SlimeVR Server running."
+    },
+    "ok": "OK"
+  },
+  "gui": {
+    "trackers": "Trackers",
+    "debug": "Debug",
+    "body": "Body",
+    "steam-vr": "Steam VR",
+    "skeleton": "Skeleton",
+    "wifi": "WiFi"
+  },
+  "info": {
+    "reset": "Reset",
+    "resetting": "Resetting...",
+    "fast-reset": "Fast Reset",
+    "title": "Trackers List",
+    "simple-name": {
+      "ComputedHumanPoseTracker": "ComputedHumanPoseTracker",
+      "ComputedTracker": "ComputedTracker",
+      "HMDTracker": "HMDTracker",
+      "IMUTracker": "IMUTracker",
+      "MPUTracker": "MPUTracker",
+      "PoseFrameTracker": "PoseFrameTracker",
+      "ReferenceAdjustedTracker": "ReferenceAdjustedTracker",
+      "ShareableTracker": "ShareableTracker",
+      "TrackerFrame": "TrackerFrame",
+      "VRTracker": "VRTracker"
+    },
+    "rotation": "Rotation: ",
+    "position": "Position: ",
+    "tps": "TPS: ",
+    "ping": "Ping: ",
+    "signal": "Signal: ",
+    "battery": "Battery: ",
+    "status": "Status: ",
+    "raw": "Raw: ",
+    "imu": {
+      "FRONT": "FRONT",
+      "LEFT": "LEFT",
+      "BACK": "BACK",
+      "RIGHT": "RIGHT"
+    },
+    "tracker-position": {
+      "NONE": "NONE",
+      "HMD": "HMD",
+      "CHEST": "CHEST",
+      "WAIST": "WAIST",
+      "HIP": "HIP",
+      "LEFT_LEG": "LEFT_LEG",
+      "RIGHT_LEG": "RIGHT_LEG",
+      "LEFT_ANKLE": "LEFT_ANKLE",
+      "RIGHT_ANKLE": "RIGHT_ANKLE",
+      "LEFT_FOOT": "LEFT_FOOT",
+      "RIGHT_FOOT": "RIGHT_FOOT",
+      "LEFT_CONTROLLER": "LEFT_CONTROLLER",
+      "RIGHT_CONTROLLER": "RIGHT_CONTROLLER",
+      "LEFT_ELBOW": "LEFT_ELBOW",
+      "RIGHT_ELBOW": "RIGHT_ELBOW"
+    },
+    "tracker-status": {
+      "DISCONNECTED": "DISCONNECTED",
+      "OK": "OK",
+      "BUSY": "BUSY",
+      "ERROR": "ERROR",
+      "OCCLUDED": "OCCLUDED"
+    }
+  },
+  "debug": {
+    "title": "Trackers Debug",
+    "quat": "Quat: ",
+    "raw-mag": "Raw Mag: ",
+    "gyro-fix": "Gyro Fix: ",
+    "cal": "Cal: ",
+    "mag-acc": "Mag Acc: ",
+    "correction": "Correction: ",
+    "rotadj": "RotAdj: ",
+    "att-fix": "Att Fix: ",
+    "yaw-fix": "Yaw Fix",
+    "adj-gyro":"Gyro Fix: ",
+    "temp": "Temp"
+  },
+  "body": {
+    "reset": "Reset",
+    "resetting": "Resetting...",
+    "title": "Body Proportions",
+    "auto": "Auto",
+    "config": {
+      "HEAD": "HEAD",
+      "NECK": "NECK",
+      "TORSO": "TORSO",
+      "CHEST": "CHEST",
+      "WAIST": "WAIST",
+      "HIP_OFFSET": "HIP_OFFSET",
+      "HIPS_WIDTH": "HIPS_WIDTH",
+      "LEGS_LENGTH": "LEGS_LENGTH",
+      "KNEE_HEIGHT": "KNEE_HEIGHT",
+      "FOOT_LENGTH": "FOOT_LENGTH",
+      "FOOT_OFFSET": "FOOT_OFFSET",
+      "SKELETON_OFFSET": "SKELETON_OFFSET",
+      "CONTROLLER_DISTANCE_Z": "CONTROLLER_DISTANCE_Z",
+      "CONTROLLER_DISTANCE_Y": "CONTROLLER_DISTANCE_Y",
+      "ELBOW_DISTANCE": "ELBOW_DISTANCE"
+    },
+    "auto-window": {
+      "title": "SlimeVR: Auto Bone",
+      "record": {
+        "start": "Start Recording",
+        "recording": "Recording...",
+        "saving": "Saving...",
+        "ready": "Not Ready",
+        "failed": "Recording Failed"
+      },
+      "save": {
+        "start": "Save Recording",
+        "waiting": "Waiting for Recording...",
+        "saving": "Saving...",
+        "saved": "Recording Saved!",
+        "ready": "No Recording...",
+        "failed": "Saving Failed"
+      },
+      "auto-adjust": {
+        "start": "Auto-Adjust",
+        "loading": "Loading...",
+        "waiting": "Waiting for Recording...",
+        "ready": "No Recordings",
+        "processing":"Processing..."
+      },
+      "apply": "Apply Values",
+      "process": "Processing has not been started..."
+    }
+  },
+  "steam-vr": {
+    "title": "Steam VR",
+    "notice": "Changes may require restart of SteamVR",
+    "waist": "Waist",
+    "legs": "Legs",
+    "chest": "Chest",
+    "knees": "Knees",
+    "elbows": "Elbows"
+  },
+  "skeleton": {
+    "title": "Skeleton",
+    "joint": "Joint",
+    "x": "X",
+    "y": "Y",
+    "z": "Z",
+    "pitch": "Pitch",
+    "yaw": "Yaw",
+    "roll": "Roll",
+    "name": {
+      "HMD": "HMD",
+      "Head": "Head",
+      "Neck": "Neck",
+      "Chest": "Chest",
+      "Chest-Tracker": "Chest-Tracker",
+      "Waist": "Waist",
+      "Hip": "Hip",
+      "Waist-Tracker": "Waist-Tracker",
+      "Left-Hip": "Left-Hip",
+      "Left-Knee": "Left-Knee",
+      "Left-Knee-Tracker": "Left-Knee-Tracker",
+      "Left-Ankle": "Left-Ankle",
+      "Left-Foot": "Left-Foot",
+      "Left-Foot-Tracker": "Left-Foot-Tracker",
+      "Right-Hip": "Right-Hip",
+      "Right-Knee": "Right-Knee",
+      "Right-Knee-Tracker": "Right-Knee-Tracker",
+      "Right-Ankle": "Right-Ankle",
+      "Right-Foot": "Right-Foot",
+      "Right-Foot-Tracker": "Right-Foot-Tracker"
+    }
+  },
+  "wifi": {
+    "title": "WiFi",
+    "disconnect": "No trackers connected, connect tracker to USB",
+    "connected-info": "Tracker connected to ",
+    "network-name": "Network Name: ",
+    "network-password": "Network Password: ",
+    "send": "Send",
+    "status": {
+      "opened": "Port Opened",
+      "written": "WiFi Written",
+      "done": "Done!",
+      "write-error": "Write WiFi Error!",
+      "open-error": "Port Open Error"
+    }
+  }
+}
