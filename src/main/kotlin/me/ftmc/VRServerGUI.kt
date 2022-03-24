@@ -73,6 +73,7 @@ fun VRServerGUI(vrServer: VRServer) {
         "Debug" -> DebugPage(trackerList)
         "Body" -> BodyPage(vrServer)
         "Steam VR" -> SteamVRPage(vrServer)
+        "Skeleton" -> SkeletonPage(nodeList)
       }
     } else {
       Column(
