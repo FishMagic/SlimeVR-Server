@@ -161,7 +161,7 @@ private fun SkeletonList(nodeList: Array<TransformNode>) {
                 a1 = String.format("%.0f", angles[0] * FastMath.RAD_TO_DEG)
                 a2 = String.format("%.0f", angles[1] * FastMath.RAD_TO_DEG)
                 a3 = String.format("%.0f", angles[2] * FastMath.RAD_TO_DEG)
-                delay(500L)
+                delay(50L)
               }
             }
           }

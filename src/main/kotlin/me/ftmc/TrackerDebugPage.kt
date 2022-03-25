@@ -200,7 +200,7 @@ private fun TrackerDebugCard(tracker: Tracker, cardWidth: Int) {
           floatArray[2] * FastMath.RAD_TO_DEG
         )
       }
-      delay(500L)
+      delay(50L)
     }
   }
 }

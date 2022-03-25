@@ -236,7 +236,7 @@ private fun TrackerInfoCard(
       realTracker.getRotation(rotationStoreMiddle)
       rotationStoreMiddle.toAngles(rotationStore)
       rawString = String.format("%.2f, %.2f, %.2f", rotationStore[0], rotationStore[1], rotationStore[2])
-      delay(500L)
+      delay(50L)
     }
 
   }
