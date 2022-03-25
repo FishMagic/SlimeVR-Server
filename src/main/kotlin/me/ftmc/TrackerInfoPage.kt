@@ -238,7 +238,6 @@ private fun TrackerInfoCard(
       rawString = String.format("%.2f, %.2f, %.2f", rotationStore[0], rotationStore[1], rotationStore[2])
       delay(50L)
     }
-
   }
 }
 
@@ -246,12 +245,9 @@ private fun TrackerInfoCard(
 private fun IMUTrackerInfo(
   realTracker: IMUTracker, tracker: Tracker, vrServer: VRServer
 ) {
-  val trackerMountingRotation = realTracker.mountingRotation
   var trackerMountingRotationSelectorExpand by remember { mutableStateOf(false) }
   var trackerMountingRotationSelected by remember {
-    mutableStateOf(
-      trackerMountingRotation?.name ?: ""
-    )
+    mutableStateOf(localI18nObject.imu[realTracker.mountingRotation])
   }
   OutlinedButton(onClick = { trackerMountingRotationSelectorExpand = true }) {
     Text(text = trackerMountingRotationSelected)
@@ -262,7 +258,7 @@ private fun IMUTrackerInfo(
       DropdownMenuItem(onClick = {
         realTracker.mountingRotation = value
         vrServer.trackerUpdated(tracker)
-        trackerMountingRotationSelected = value.name
+        trackerMountingRotationSelected = localI18nObject.imu[value]
         trackerMountingRotationSelectorExpand = false
       }) {
         Text(text = localI18nObject.imu[value])
@@ -276,8 +272,7 @@ private fun EditableTrackerInfo(vrServer: VRServer, tracker: Tracker) {
   val trackerConfig = vrServer.getTrackerConfig(tracker)
   var positionSelectorExpand by remember { mutableStateOf(false) }
   var positionSelected by remember {
-    val designation = TrackerPosition.getByDesignation(trackerConfig.designation)
-    mutableStateOf(designation?.name ?: "")
+    mutableStateOf(localI18nObject.trackerPosition[TrackerPosition.getByDesignation(trackerConfig.designation)])
   }
   OutlinedButton(onClick = { positionSelectorExpand = true }) {
     Text(text = positionSelected)
@@ -287,7 +282,7 @@ private fun EditableTrackerInfo(vrServer: VRServer, tracker: Tracker) {
       DropdownMenuItem(onClick = {
         tracker.bodyPosition = value
         vrServer.trackerUpdated(tracker)
-        positionSelected = value.name
+        positionSelected = localI18nObject.trackerPosition[value]
         positionSelectorExpand = false
       }) {
         Text(text = localI18nObject.trackerPosition[value])
