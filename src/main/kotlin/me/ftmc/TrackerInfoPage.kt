@@ -250,7 +250,7 @@ private fun IMUTrackerInfo(
   var trackerMountingRotationSelectorExpand by remember { mutableStateOf(false) }
   var trackerMountingRotationSelected by remember {
     mutableStateOf(
-      trackerMountingRotation.name
+      trackerMountingRotation?.name ?: ""
     )
   }
   OutlinedButton(onClick = { trackerMountingRotationSelectorExpand = true }) {
