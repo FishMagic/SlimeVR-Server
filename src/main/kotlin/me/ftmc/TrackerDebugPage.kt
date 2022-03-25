@@ -146,55 +146,55 @@ private fun TrackerDebugCard(tracker: Tracker, cardWidth: Int) {
     while (true) {
       if (realTracker is IMUTracker) {
         realTracker.rotMagQuaternion.toAngles(floatArray)
-        rawMag = String.format("%d, %d, %d", floatArray[0], floatArray[1], floatArray[2])
+        rawMag = String.format("%.0f, %.0f, %.0f", floatArray[0], floatArray[1], floatArray[2])
         calibration = String.format("%d / %d", realTracker.calibrationStatus, realTracker.magCalibrationStatus)
         magAccuracy = String.format("%.1f°", realTracker.magnetometerAccuracy * FastMath.RAD_TO_DEG)
         realTracker.getCorrection(quaternion)
         quaternion.toAngles(floatArray)
         correction = String.format(
-          "%d, %d, %d",
+          "%.0f, %.0f, %.0f",
           floatArray[0] * FastMath.RAD_TO_DEG,
           floatArray[1] * FastMath.RAD_TO_DEG,
           floatArray[2] * FastMath.RAD_TO_DEG
         )
         realTracker.rotQuaternion.toAngles(floatArray)
         rotQuat = String.format(
-          "%d, %d, %d",
+          "%.0f, %.0f, %.0f",
           floatArray[0] * FastMath.RAD_TO_DEG,
           floatArray[1] * FastMath.RAD_TO_DEG,
           floatArray[2] * FastMath.RAD_TO_DEG
         )
         realTracker.rotAdjust.toAngles(floatArray)
         rotAdj = String.format(
-          "%d, %d, %d",
+          "%.0f, %.0f, %.0f",
           floatArray[0] * FastMath.RAD_TO_DEG,
           floatArray[1] * FastMath.RAD_TO_DEG,
           floatArray[2] * FastMath.RAD_TO_DEG
         )
-        if (realTracker.temperature == 0f) {
-          temperature = "?"
+        temperature = if (realTracker.temperature == 0f) {
+          "?"
         } else {
-          temperature = String.format("%.1f∘C")
+          String.format("%.1f∘C", realTracker.temperature)
         }
       }
       if (realTracker is ReferenceAdjustedTracker<*>) {
         realTracker.attachmentFix.toAngles(floatArray)
         adj = String.format(
-          "%d, %d, %d",
+          "%.0f, %.0f, %.0f",
           floatArray[0] * FastMath.RAD_TO_DEG,
           floatArray[1] * FastMath.RAD_TO_DEG,
           floatArray[2] * FastMath.RAD_TO_DEG
         )
         realTracker.yawFix.toAngles(floatArray)
         adjYaw = String.format(
-          "%d, %d, %d",
+          "%.0f, %.0f, %.0f",
           floatArray[0] * FastMath.RAD_TO_DEG,
           floatArray[1] * FastMath.RAD_TO_DEG,
           floatArray[2] * FastMath.RAD_TO_DEG
         )
         realTracker.gyroFix.toAngles(floatArray)
         adjGyro = String.format(
-          "%d, %d, %d",
+          "%.0f, %.0f, %.0f",
           floatArray[0] * FastMath.RAD_TO_DEG,
           floatArray[1] * FastMath.RAD_TO_DEG,
           floatArray[2] * FastMath.RAD_TO_DEG

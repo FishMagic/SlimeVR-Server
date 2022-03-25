@@ -217,9 +217,9 @@ private fun TrackerInfoCard(
         battery = if (level == 0f) {
           String.format("%.2fV", voltage)
         } else if (voltage == 0f) {
-          String.format("%d%%", level)
+          String.format("%.0f%%", level)
         } else {
-          String.format("%d%% (%.2fV)", level, voltage)
+          String.format("%.0f%% (%.2fV)", level, voltage)
         }
       }
       if (realTracker is IMUTracker) {
