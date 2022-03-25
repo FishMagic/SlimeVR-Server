@@ -40,6 +40,7 @@ import dev.slimevr.vr.trackers.TrackerMountingRotation
 import dev.slimevr.vr.trackers.TrackerPosition
 import dev.slimevr.vr.trackers.TrackerWithBattery
 import dev.slimevr.vr.trackers.TrackerWithTPS
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -62,7 +63,7 @@ fun TrackerPage(vrServer: VRServer, trackersList: MutableList<Tracker>) {
       var resetButtonText by remember { mutableStateOf(localI18nObject.reset) }
       Button(
         onClick = {
-          MainScope().launch {
+          MainScope().launch(Dispatchers.IO) {
             reseting = true
             resetButtonText = localI18nObject.resetting
             vrServer.resetTrackers()
@@ -76,7 +77,7 @@ fun TrackerPage(vrServer: VRServer, trackersList: MutableList<Tracker>) {
       }
       Text(text = localI18nObject.title, style = MaterialTheme.typography.h5)
       Button(onClick = {
-        MainScope().launch {
+        MainScope().launch(Dispatchers.IO) {
           vrServer.resetTrackersYaw()
         }
       }) {

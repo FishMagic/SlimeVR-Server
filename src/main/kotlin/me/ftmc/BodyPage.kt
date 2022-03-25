@@ -36,6 +36,7 @@ import dev.slimevr.poserecorder.PoseFrames
 import dev.slimevr.poserecorder.PoseRecorder
 import dev.slimevr.vr.processor.skeleton.SkeletonConfigValue
 import io.eiren.util.logging.LogManager
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -59,7 +60,7 @@ fun BodyPage(vrServer: VRServer) {
       var resetButtonText by remember { mutableStateOf(localI18nObject.reset) }
       Button(
         onClick = {
-          MainScope().launch {
+          MainScope().launch (Dispatchers.IO) {
             resetting = true
             resetButtonText = localI18nObject.resetting
             vrServer.humanPoseProcessor.resetAllSkeletonConfigs()
@@ -136,7 +137,7 @@ private fun SkeletionList(vrServer: VRServer) {
               SkeletonConfigValue.TORSO, SkeletonConfigValue.LEGS_LENGTH -> {
                 TextButton(
                   onClick = {
-                    MainScope().launch {
+                    MainScope().launch (Dispatchers.IO) {
                       reseting = true
                       resetButtonText = localI18nObject.resetting
                       vrServer.humanPoseProcessor.resetSkeletonConfig(config)
