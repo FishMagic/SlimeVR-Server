@@ -276,9 +276,8 @@ private fun EditableTrackerInfo(vrServer: VRServer, tracker: Tracker) {
   val trackerConfig = vrServer.getTrackerConfig(tracker)
   var positionSelectorExpand by remember { mutableStateOf(false) }
   var positionSelected by remember {
-    mutableStateOf(
-      TrackerPosition.getByDesignation(trackerConfig.designation).name
-    )
+    val designation = TrackerPosition.getByDesignation(trackerConfig.designation)
+    mutableStateOf(designation?.name ?: "")
   }
   OutlinedButton(onClick = { positionSelectorExpand = true }) {
     Text(text = positionSelected)
